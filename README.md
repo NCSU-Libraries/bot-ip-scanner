@@ -14,6 +14,13 @@ This creates `./logparse`, a Linux ELF binary that can be installed on any RHEL 
 
     $ ./logparse server-id-secure_access_ssl.log > concatenated-json-bannable-requests.json
 
+OR
+    $ grep -P (some regex) access.log | ./logparse > output.json
+
+Additionally you can pass in the `-b (path to YAML file)` option to load your
+own "blocklist" file; see the `princeton_ban_list.yml` file in `internal/util`
+for format hints.
+
 As indicated, the output is "concatenated JSON" that can be parsed by tools 
 such as `yajl` and `jq` (not quite ndjson and definitely not valid spec-compliant JSON); each record has the keys `ipv4`, `source`, `range`,
 `query_string`, and `time` indicating the source IP, name assigned to the
